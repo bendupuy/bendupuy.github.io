@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ben Dupuy | Marketing & Data Science</title>
+<style>
+  :root {
+    --aggie-blue: #00263A;
+    --aggie-blue-light: #003a57;
+    --silver: #8A8D8F;
+    --light-gray: #f7f8fa;
+    --white: #ffffff;
+    --text: #2c2c2c;
+    --text-light: #5a5e63;
+    --accent: #0077b6;
+    --border: #e2e5e9;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--text);
+    line-height: 1.7;
+    background: var(--white);
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+  }
+  nav .nav-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; justify-content: space-between; align-items: center;
+    height: 60px;
+  }
+  nav .logo {
+    font-weight: 700; font-size: 1.1rem; color: var(--aggie-blue);
+    letter-spacing: -0.5px;
+  }
+  nav .nav-links { display: flex; gap: 2rem; list-style: none; }
+  nav .nav-links a {
+    text-decoration: none; color: var(--text-light); font-size: 0.9rem;
+    font-weight: 500; transition: color 0.2s;
+  }
+  nav .nav-links a:hover { color: var(--aggie-blue); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(160deg, var(--aggie-blue) 0%, var(--aggie-blue-light) 50%, #005f8a 100%);
+    color: var(--white);
+    text-align: center;
+    padding: 6rem 2rem 4rem;
+  }
+  .hero-content { max-width: 700px; }
+  .hero h1 {
+    font-size: 3.2rem; font-weight: 700; letter-spacing: -1.5px;
+    margin-bottom: 0.5rem; line-height: 1.15;
+  }
+  .hero .tagline {
+    font-size: 1.25rem; opacity: 0.85; margin-bottom: 2rem;
+    font-weight: 300;
+  }
+  .hero .stat-row {
+    display: flex; justify-content: center; gap: 3rem;
+    margin-top: 2.5rem; flex-wrap: wrap;
+  }
+  .hero .stat { text-align: center; }
+  .hero .stat .num {
+    font-size: 2.4rem; font-weight: 700; display: block;
+    letter-spacing: -1px;
+  }
+  .hero .stat .label {
+    font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1.5px;
+    opacity: 0.7;
+  }
+  .hero-cta {
+    display: inline-flex; gap: 1rem; margin-top: 2.5rem; flex-wrap: wrap;
+    justify-content: center;
+  }
+  .hero-cta a {
+    padding: 0.75rem 1.8rem; border-radius: 6px; text-decoration: none;
+    font-weight: 600; font-size: 0.9rem; transition: all 0.2s;
+  }
+  .btn-primary {
+    background: var(--white); color: var(--aggie-blue);
+  }
+  .btn-primary:hover { background: #e8edf2; }
+  .btn-secondary {
+    border: 1.5px solid rgba(255,255,255,0.5); color: var(--white);
+    background: transparent;
+  }
+  .btn-secondary:hover { border-color: var(--white); background: rgba(255,255,255,0.1); }
+
+  /* SECTIONS */
+  section { padding: 5rem 2rem; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2.5px;
+    color: var(--accent); font-weight: 600; margin-bottom: 0.5rem;
+  }
+  .section-title {
+    font-size: 2rem; font-weight: 700; color: var(--aggie-blue);
+    letter-spacing: -0.5px; margin-bottom: 1rem;
+  }
+  .section-subtitle {
+    color: var(--text-light); font-size: 1.05rem; max-width: 600px;
+    margin-bottom: 3rem;
+  }
+
+  .alt-bg { background: var(--light-gray); }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
+    align-items: start;
+  }
+  .about-text p { margin-bottom: 1rem; color: var(--text-light); }
+  .about-details { display: flex; flex-direction: column; gap: 1.5rem; }
+  .detail-card {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: 10px; padding: 1.5rem;
+  }
+  .detail-card h4 {
+    font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px;
+    color: var(--silver); margin-bottom: 0.5rem;
+  }
+  .detail-card p { font-weight: 600; color: var(--aggie-blue); font-size: 0.95rem; }
+  .detail-card .sub { font-weight: 400; color: var(--text-light); font-size: 0.85rem; }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+  }
+  .skill-card {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: 12px; padding: 2rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .skill-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(0,38,58,0.08);
+  }
+  .skill-icon {
+    width: 44px; height: 44px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem; margin-bottom: 1.2rem;
+    background: #eaf4fb; color: var(--accent);
+  }
+  .skill-card h3 {
+    font-size: 1.05rem; font-weight: 700; color: var(--aggie-blue);
+    margin-bottom: 0.5rem;
+  }
+  .skill-card p {
+    font-size: 0.88rem; color: var(--text-light); line-height: 1.6;
+  }
+  .skill-tags {
+    display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1rem;
+  }
+  .skill-tags span {
+    font-size: 0.72rem; padding: 0.25rem 0.6rem; border-radius: 20px;
+    background: var(--light-gray); color: var(--text-light); font-weight: 500;
+  }
+
+  /* EXPERIENCE */
+  .timeline { position: relative; padding-left: 2rem; }
+  .timeline::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 2px; background: var(--border);
+  }
+  .timeline-item {
+    position: relative; margin-bottom: 3rem; padding-left: 1.5rem;
+  }
+  .timeline-item::before {
+    content: ''; position: absolute; left: -2.38rem; top: 0.35rem;
+    width: 12px; height: 12px; border-radius: 50%;
+    background: var(--accent); border: 3px solid var(--white);
+    box-shadow: 0 0 0 2px var(--accent);
+  }
+  .timeline-item .date {
+    font-size: 0.78rem; color: var(--accent); font-weight: 600;
+    text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.3rem;
+  }
+  .timeline-item h3 {
+    font-size: 1.15rem; font-weight: 700; color: var(--aggie-blue);
+    margin-bottom: 0.15rem;
+  }
+  .timeline-item .company {
+    font-size: 0.9rem; color: var(--silver); font-weight: 500;
+    margin-bottom: 0.8rem;
+  }
+  .timeline-item ul {
+    list-style: none; padding: 0;
+  }
+  .timeline-item li {
+    font-size: 0.88rem; color: var(--text-light); margin-bottom: 0.5rem;
+    padding-left: 1.2rem; position: relative;
+  }
+  .timeline-item li::before {
+    content: ''; position: absolute; left: 0; top: 0.55rem;
+    width: 5px; height: 5px; border-radius: 50%; background: var(--border);
+  }
+  .impact-badge {
+    display: inline-block; background: #e6f7ee; color: #1a7a42;
+    font-size: 0.75rem; font-weight: 700; padding: 0.2rem 0.6rem;
+    border-radius: 4px; margin-left: 0.3rem;
+  }
+
+  /* PROJECTS */
+  .projects-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+  }
+  .project-card {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: 12px; padding: 2rem; position: relative;
+    overflow: hidden; transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .project-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(0,38,58,0.08);
+  }
+  .project-card .proj-type {
+    font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px;
+    color: var(--accent); font-weight: 600; margin-bottom: 0.8rem;
+  }
+  .project-card h3 {
+    font-size: 1.05rem; font-weight: 700; color: var(--aggie-blue);
+    margin-bottom: 0.6rem; line-height: 1.4;
+  }
+  .project-card p {
+    font-size: 0.85rem; color: var(--text-light); margin-bottom: 1rem;
+  }
+  .project-metric {
+    display: flex; align-items: baseline; gap: 0.5rem;
+    padding-top: 1rem; border-top: 1px solid var(--border);
+  }
+  .project-metric .value {
+    font-size: 1.6rem; font-weight: 700; color: var(--aggie-blue);
+  }
+  .project-metric .desc {
+    font-size: 0.78rem; color: var(--text-light);
+  }
+
+  /* CERTIFICATIONS */
+  .certs-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;
+  }
+  .cert-item {
+    display: flex; align-items: center; gap: 0.8rem;
+    padding: 1rem 1.2rem; background: var(--white);
+    border: 1px solid var(--border); border-radius: 8px;
+  }
+  .cert-icon {
+    width: 36px; height: 36px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem; flex-shrink: 0;
+  }
+  .cert-icon.hubspot { background: #fff1eb; color: #ff5c35; }
+  .cert-icon.google { background: #eaf4eb; color: #34a853; }
+  .cert-item span { font-size: 0.85rem; font-weight: 500; color: var(--text); }
+
+  /* CONTACT */
+  .contact-section {
+    background: var(--aggie-blue); color: var(--white);
+    text-align: center; padding: 5rem 2rem;
+  }
+  .contact-section .section-label { color: rgba(255,255,255,0.5); }
+  .contact-section .section-title { color: var(--white); }
+  .contact-section .section-subtitle { color: rgba(255,255,255,0.7); margin: 0 auto 2.5rem; }
+  .contact-links {
+    display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap;
+  }
+  .contact-links a {
+    display: flex; align-items: center; gap: 0.5rem;
+    padding: 0.75rem 1.5rem; border-radius: 8px;
+    text-decoration: none; font-weight: 500; font-size: 0.9rem;
+    background: rgba(255,255,255,0.1); color: var(--white);
+    border: 1px solid rgba(255,255,255,0.15); transition: all 0.2s;
+  }
+  .contact-links a:hover {
+    background: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.3);
+  }
+
+  /* FOOTER */
+  footer {
+    text-align: center; padding: 2rem;
+    font-size: 0.8rem; color: var(--silver);
+    border-top: 1px solid var(--border);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .skills-grid, .projects-grid, .certs-grid { grid-template-columns: 1fr 1fr; }
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .hero h1 { font-size: 2.4rem; }
+  }
+  @media (max-width: 600px) {
+    .skills-grid, .projects-grid, .certs-grid { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 2rem; }
+    .hero .stat-row { gap: 1.5rem; }
+    nav .nav-links { gap: 1rem; }
+    nav .nav-links a { font-size: 0.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="logo">B. Dupuy</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <h1>Ben Dupuy</h1>
+    <p class="tagline">Marketing meets data. I turn data into decisions and campaigns into measurable outcomes.</p>
+    <div class="hero-cta">
+      <a href="#contact" class="btn-primary">Get in Touch</a>
+      <a href="#projects" class="btn-secondary">View Projects</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text">
+        <p class="section-label">About</p>
+        <h2 class="section-title">Where Strategy Meets Data Science</h2>
+        <p>I'm a marketing professional building deep expertise in data science and machine learning. I combine hands-on campaign experience with advanced training in Python, deep learning, and predictive modeling to bridge the gap between creative strategy and quantitative rigor.</p>
+        <p>My approach is simple: every marketing decision should be backed by data. Whether I'm designing a content strategy, building an LSTM forecasting model, or optimizing email campaigns for 40K+ segments, I focus on translating insights into measurable business impact.</p>
+      </div>
+      <div class="about-details">
+        <div class="detail-card">
+          <h4>Education</h4>
+          <p>B.S. Marketing <span class="sub">&mdash; Magna Cum Laude</span></p>
+          <p style="margin-top:0.3rem;">M.S. Management Information Systems <span class="sub">&mdash; In Progress</span></p>
+          <p class="sub" style="margin-top:0.3rem;">Utah State University, Huntsman School of Business</p>
+        </div>
+        <div class="detail-card">
+          <h4>Focus Areas</h4>
+          <p>Marketing Analytics &middot; Machine Learning &middot; Brand Strategy</p>
+          <p class="sub" style="margin-top:0.3rem;">Regression, Deep Learning, A/B Testing, Data Visualization</p>
+        </div>
+        <div class="detail-card">
+          <h4>Current Role</h4>
+          <p>Library Marketing Specialist</p>
+          <p class="sub" style="margin-top:0.3rem;">Utah State University &middot; August 2024 &ndash; Present</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="alt-bg">
+  <div class="container">
+    <p class="section-label">Capabilities</p>
+    <h2 class="section-title">What I Bring to the Table</h2>
+    <p class="section-subtitle">A hybrid skillset spanning creative strategy and technical execution.</p>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-icon">&#9783;</div>
+        <h3>Marketing Strategy</h3>
+        <p>End-to-end campaign planning, audience segmentation, and messaging optimization grounded in behavioral data.</p>
+        <div class="skill-tags">
+          <span>Content Strategy</span><span>Email Marketing</span><span>A/B Testing</span><span>Social Media</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">&#9881;</div>
+        <h3>Machine Learning</h3>
+        <p>Building predictive models for classification, forecasting, and pattern recognition using modern ML frameworks.</p>
+        <div class="skill-tags">
+          <span>Python</span><span>TensorFlow</span><span>Scikit-learn</span><span>LSTM</span><span>CNN</span><span>XGBoost</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">&#9636;</div>
+        <h3>Data Analytics</h3>
+        <p>Transforming raw data into actionable dashboards and reports that drive strategic decisions.</p>
+        <div class="skill-tags">
+          <span>Tableau</span><span>SQL</span><span>Pandas</span><span>Google Analytics</span><span>Looker Studio</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">&#9733;</div>
+        <h3>Brand Strategy</h3>
+        <p>Crafting brand positioning, naming, and verbal identity systems for organizations ranging from startups to global corporations.</p>
+        <div class="skill-tags">
+          <span>Brand Naming</span><span>Competitive Audits</span><span>Language Guides</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">&#9780;</div>
+        <h3>Content Creation</h3>
+        <p>Developing data-informed content across digital channels, from social media campaigns to long-form editorial.</p>
+        <div class="skill-tags">
+          <span>Copywriting</span><span>Social Media</span><span>SMS</span><span>Editorial</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">&#8801;</div>
+        <h3>Performance Dashboards</h3>
+        <p>Engineering custom reporting tools to track KPIs, visualize trends, and communicate results to stakeholders.</p>
+        <div class="skill-tags">
+          <span>Matplotlib</span><span>NumPy</span><span>KPI Tracking</span><span>Reporting</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <p class="section-label">Experience</p>
+    <h2 class="section-title">Where I've Made an Impact</h2>
+    <p class="section-subtitle">A track record of turning data into results across marketing and branding roles.</p>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="date">August 2024 &ndash; Present</div>
+        <h3>Library Marketing Specialist</h3>
+        <div class="company">Utah State University &middot; Logan, Utah</div>
+        <ul>
+          <li>Designed and executed a new analytics-driven content strategy, resulting in a <strong>600% increase</strong> in social engagement in 3 months <span class="impact-badge">+600%</span></li>
+          <li>Partnered with stakeholders to develop and optimize communication journeys across digital channels, aligning messaging with audience behavior and conversion goals</li>
+          <li>Engineered performance dashboards to track campaign KPIs and present insights to leadership</li>
+          <li>Collaborated cross-functionally to craft unified, data-informed messaging for department-wide initiatives</li>
+        </ul>
+      </div>
+      <div class="timeline-item">
+        <div class="date">December 2023 &ndash; July 2024</div>
+        <h3>Digital Marketing Specialist</h3>
+        <div class="company">My Girlfriend's Quilt Shoppe &middot; Logan, Utah</div>
+        <ul>
+          <li>Leveraged customer data and email marketing tactics to develop a strategy for a high-ticket sales event, generating <strong>$375K in two weeks</strong> <span class="impact-badge">$375K</span></li>
+          <li>Ran A/B tests on email and SMS campaigns for 40K+ segments, optimizing messaging and driving consistent weekly revenue</li>
+        </ul>
+      </div>
+      <div class="timeline-item">
+        <div class="date">May 2023 &ndash; December 2023</div>
+        <h3>Brand Strategy & Naming Intern</h3>
+        <div class="company">Tanj Branding Agency &middot; Remote</div>
+        <ul>
+          <li>Designed and presented brand strategies, language guides, and naming systems for global corporations and new ventures</li>
+          <li>Led a competitive brand audit and delivered a strategic rebranding proposal backed by market insights</li>
+          <li>Evaluated social media performance metrics and produced data-driven recommendations to enhance website lead conversions</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="alt-bg">
+  <div class="container">
+    <p class="section-label">Technical Projects</p>
+    <h2 class="section-title">Data Science in Action</h2>
+    <p class="section-subtitle">Machine learning projects demonstrating real-world predictive modeling capabilities.</p>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="proj-type">Time Series &middot; LSTM</div>
+        <h3>River Discharge Forecasting</h3>
+        <p>Built an LSTM model to forecast 24-hour river discharge using 5 years of USGS hydrological data, outperforming baseline by 80%.</p>
+        <div class="project-metric">
+          <span class="value">0.984</span>
+          <span class="desc">R&sup2; score with 2.01 MAE</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="proj-type">Sequential Modeling &middot; LSTM</div>
+        <h3>College Football Drive Prediction</h3>
+        <p>Developed an LSTM neural network to predict offensive drive outcomes using 5 seasons of NCAA play-by-play data.</p>
+        <div class="project-metric">
+          <span class="value">59%</span>
+          <span class="desc">Accuracy across 13,487 drives</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="proj-type">Computer Vision &middot; CNN</div>
+        <h3>Facial Verification System</h3>
+        <p>Compared transfer learning (FaceNet, 128-dim embeddings) against a custom CNN, demonstrating pretrained model superiority for small-dataset authentication.</p>
+        <div class="project-metric">
+          <span class="value">FaceNet</span>
+          <span class="desc">Transfer learning outperformed custom CNN</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section>
+  <div class="container">
+    <p class="section-label">Certifications</p>
+    <h2 class="section-title">Validated Expertise</h2>
+    <p class="section-subtitle">Industry-recognized certifications across marketing and analytics platforms.</p>
+    <div class="certs-grid">
+      <div class="cert-item">
+        <div class="cert-icon hubspot">H</div>
+        <span>HubSpot Email Marketing</span>
+      </div>
+      <div class="cert-item">
+        <div class="cert-icon hubspot">H</div>
+        <span>HubSpot Content Marketing</span>
+      </div>
+      <div class="cert-item">
+        <div class="cert-icon hubspot">H</div>
+        <span>HubSpot Social Media Marketing</span>
+      </div>
+      <div class="cert-item">
+        <div class="cert-icon google">G</div>
+        <span>Google Ads Measurements</span>
+      </div>
+      <div class="cert-item">
+        <div class="cert-icon google">G</div>
+        <span>Google Ads Search</span>
+      </div>
+      <div class="cert-item">
+        <div class="cert-icon google">G</div>
+        <span>Google Analytics IQ</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-section">
+  <div class="container">
+    <p class="section-label">Contact</p>
+    <h2 class="section-title">Let's Connect</h2>
+    <p class="section-subtitle">Open to opportunities in marketing analytics, data science, and ML-driven strategy.</p>
+    <div class="contact-links">
+      <a href="mailto:benjamin.m.dupuy@gmail.com">
+        <span>&#9993;</span> benjamin.m.dupuy@gmail.com
+      </a>
+      <a href="https://www.linkedin.com/in/bendupuy/" target="_blank">
+        <span>in</span> LinkedIn
+      </a>
+      <a href="tel:+17023716619">
+        <span>&#9742;</span> (702) 371-6619
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  &copy; 2026 Ben Dupuy. All rights reserved.
+</footer>
+
+</body>
+</html>
